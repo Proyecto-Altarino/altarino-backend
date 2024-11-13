@@ -66,9 +66,8 @@ app.post("/notificar-rol", async (req, res) => {
     const mensaje = { 
       notification: { title: title, body: body }, 
       tokens: tokensEmpleados, 
-      android: {
-        notification: { priority: "high", sound: "default" } 
-      } 
+      priority: "high",
+      content_available: true
     };
 
     const response = await admin.messaging().sendEachForMulticast(mensaje);
