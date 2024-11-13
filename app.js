@@ -45,7 +45,7 @@ app.post("/notificar-rol", async (req, res) => {
     const querySnapshot = await db.collection("Usuarios").where("perfil", "==", role).get();
     const querySnapshot2 = await db.collection("Usuarios").where("tipo", "==", role).get();
     
-    if(querySnapshot2.length > 0)
+    if(querySnapshot2.size > 0)
     {
       for(const doc of querySnapshot2) { querySnapshot.push(doc); }
     }
