@@ -63,7 +63,13 @@ app.post("/notificar-rol", async (req, res) => {
 
     if (tokensEmpleados.length === 0) { return res.status(404).send("No hay usuarios a los que enviar un mensaje"); }
 
-    const mensaje = { notification: { title: title, body: body }, tokens: tokensEmpleados };
+    const mensaje = { 
+      notification: { title: title, body: body }, 
+      tokens: tokensEmpleados, 
+      android: {
+        notification: { priority: "high", sound: "default" } 
+      } 
+    };
 
     const response = await admin.messaging().sendEachForMulticast(mensaje);
     res.status(200).send(`Mensajes enviados: ${response.successCount}`);
