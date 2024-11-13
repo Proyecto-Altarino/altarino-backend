@@ -47,13 +47,19 @@ app.post("/notificar-rol", async (req, res) => {
     
     if(querySnapshot2.size > 0)
     {
-      querySnapshot2.forEach(doc => { querySnapshot.push(doc); })
+      querySnapshot2.forEach(doc => { 
+        const data = doc.data();
+        if (data.token) { tokensEmpleados.push(data.token); }
+      });
     }
 
-    querySnapshot.forEach(doc => {
-      const data = doc.data();
-      if (data.token) { tokensEmpleados.push(data.token); }
-    });
+    if(querySnapshot.size > 0)
+    {
+      querySnapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.token) { tokensEmpleados.push(data.token); }
+      });
+    }
 
     if (tokensEmpleados.length === 0) { return res.status(404).send("No hay usuarios a los que enviar un mensaje"); }
 
